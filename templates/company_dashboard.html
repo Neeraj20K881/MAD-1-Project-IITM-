@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Company Dashboard</h2>
+<h4>{{ company['company_name'] or 'Company Profile' }}</h4>
+<p>
+  Approved: {{ 'Yes' if company['approved'] else 'No' }} | Blacklisted: {{ 'Yes'
+  if company['blacklisted'] else 'No' }}
+</p>
+<a class="btn btn-primary" href="{{ url_for('company_create_drive') }}"
+  >Create Drive</a
+>
+
+<h4 class="mt-4">Your Drives</h4>
+<div class="list-group">
+  {% for d in drives %}
+  <div class="list-group-item">
+    <h5>{{ d['job_title'] }}</h5>
+    <div>Status: {{ d['status'] }}</div>
+    <a
+      class="btn btn-sm btn-outline-primary mt-2"
+      href="{{ url_for('company_drive_applications', drive_id=d['id']) }}"
+      >View Applications</a
+    >
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

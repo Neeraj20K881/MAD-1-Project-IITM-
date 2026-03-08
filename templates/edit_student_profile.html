@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Edit student profile</h2>
+
+{# Wrap the form in a small, explained container so it's clear what's happening
+#}
+<div class="profile-form">
+  <form method="post" aria-label="Edit student profile form">
+    {# Full name: simple text input. If student exists, pre-fill the value. #}
+    <div class="mb-3">
+      <label class="form-label" for="full_name">Full name</label>
+      <input
+        id="full_name"
+        class="form-control"
+        name="full_name"
+        value="{{ student['full_name'] if student else '' }}"
+      />
+    </div>
+
+    {# Department: text input for department/major #}
+    <div class="mb-3">
+      <label class="form-label" for="department">Department</label>
+      <input
+        id="department"
+        class="form-control"
+        name="department"
+        value="{{ student['department'] if student else '' }}"
+      />
+    </div>
+
+    {# CGPA: numeric input with two decimal places allowed. We guard against
+    None. #}
+    <div class="mb-3">
+      <label class="form-label" for="cgpa">CGPA</label>
+      <input
+        id="cgpa"
+        class="form-control"
+        name="cgpa"
+        type="number"
+        step="0.01"
+        value="{{ student['cgpa'] if student and student['cgpa'] is not none else '' }}"
+      />
+    </div>
+
+    {# Phone: free text (you may add pattern/validation later) #}
+    <div class="mb-3">
+      <label class="form-label" for="phone">Phone</label>
+      <input
+        id="phone"
+        class="form-control"
+        name="phone"
+        value="{{ student['phone'] if student else '' }}"
+      />
+    </div>
+
+    {# Buttons: Save submits, Cancel returns to dashboard. The small wrapper
+    class helps with responsive stacking. #}
+    <div class="d-flex flex-wrap align-items-center">
+      <button class="btn btn-primary" type="submit">Save</button>
+      <a
+        class="btn btn-secondary ms-2"
+        href="{{ url_for('student_dashboard') }}"
+        >Cancel</a
+      >
+    </div>
+  </form>
+</div>
+
+{% endblock %}

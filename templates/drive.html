@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+<h2>{{ drive['job_title'] }}</h2>
+<p><strong>Company:</strong> {{ drive['company_name'] }}</p>
+<p><strong>Description:</strong> {{ drive['job_desc'] }}</p>
+<p><strong>Eligibility:</strong> {{ drive['eligibility'] }}</p>
+<p><strong>Deadline:</strong> {{ drive['deadline'] }}</p>
+<p><strong>Drive status:</strong> {{ drive['status'] }}</p>
+
+{# If the logged-in user is a student, show their application status for this
+drive (if any) #} {% if user and user['role'] == 'student' %} {% if application
+%}
+<p>
+  <strong>Your application status:</strong>
+  <span class="badge bg-secondary">{{ application['status'] }}</span>
+</p>
+{% else %}
+<form method="post" action="{{ url_for('drive_apply', drive_id=drive['id']) }}">
+  <button class="btn btn-primary" type="submit">Apply</button>
+</form>
+{% endif %} {% else %}
+<p class="text-muted">Login as student to apply.</p>
+{% endif %} {% endblock %}

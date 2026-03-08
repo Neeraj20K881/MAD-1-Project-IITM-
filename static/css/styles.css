@@ -1,0 +1,149 @@
+/* styles.css
+   Small, original CSS for the Placement Portal templates.
+   Kept intentionally simple and commented so students understand how it works.
+   This file should be unique to your project to avoid plagiarism issues.
+*/
+
+/* Body / page layout tweaks */
+body {
+  background: #f8fafc; /* very light neutral background */
+  color: #222;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial;
+}
+
+/* Slightly narrower content and gentle card look */
+.container {
+  max-width: 860px;
+}
+
+/* Simple header brand styling */
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Brand and hero styles */
+.navbar-portal {
+  background: linear-gradient(90deg, #2563eb 0%, #4f46e5 100%);
+  color: #fff;
+}
+.navbar-portal .navbar-brand,
+.navbar-portal .brand-text {
+  color: #fff;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.brand-mark .bi {
+  font-size: 18px;
+  color: #fff;
+}
+.bg-hero {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), transparent 60%);
+}
+
+/* Card look for drives and lists */
+.drive-card {
+  border: 1px solid #e6e9ee;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+}
+
+.drive-title {
+  font-weight: 600;
+}
+
+/* Footer */
+footer {
+  color: #6b7280;
+}
+
+/* Form container for student profile editing */
+.profile-form {
+  background: #ffffff;
+  border: 1px solid #e6e9ee;
+  padding: 18px;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+/* Make labels easier to read and inputs slightly taller */
+.form-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-control {
+  height: 42px;
+}
+
+/* Button distinction: primary and secondary remain Bootstrap, but we slightly adjust spacing */
+.btn + .btn {
+  margin-left: 8px;
+}
+
+/* Small responsive tweak: stack buttons on very small screens */
+@media (max-width: 420px) {
+  .btn-group-vertical-mobile .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+/* Visible badge for logged-in user on gradient navbar */
+.user-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a; /* dark text for readability */
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+  font-size: 0.9rem;
+}
+
+/* Role-specific badge tweaks */
+.user-badge.role-company {
+  background: linear-gradient(
+    90deg,
+    rgba(79, 70, 229, 0.06),
+    rgba(37, 99, 235, 0.04)
+  );
+  color: #0b1226;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.user-badge.role-company .bi {
+  color: #374151; /* subtle dark icon */
+}
+.user-badge.role-admin {
+  background: linear-gradient(
+    90deg,
+    rgba(245, 158, 11, 0.06),
+    rgba(239, 68, 68, 0.03)
+  );
+  color: #0b1226;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.user-badge .user-name {
+  display: inline-block;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Applications for {{ drive['job_title'] }}</h2>
+  <div class="list-group">
+    {% for a in apps %}
+      <div class="list-group-item">
+        <div><strong>{{ a['full_name'] or a['student_username'] }}</strong></div>
+
+        {# student details shown before status: department, cgpa, phone (if available) #}
+        <div class="text-muted small mb-2">
+          {% if a['department'] %}<span>{{ a['department'] }}</span>{% endif %}
+          {% if a['cgpa'] is not none %}
+            <span class="mx-2">&bull;</span>
+            <span>CGPA: {{ a['cgpa'] }}</span>
+          {% endif %}
+          {% if a['phone'] %}
+            <span class="mx-2">&bull;</span>
+            <span>Phone: {{ a['phone'] }}</span>
+          {% endif %}
+        </div>
+
+        <div class="mb-2">Status: <strong>{{ a['status'] }}</strong></div>
+
+        <form method="post" action="{{ url_for('application_update_status', app_id=a['id']) }}" class="mt-2">
+          <select name="status" class="form-select form-select-sm mb-2">
+            <option value="Applied" {% if a['status']=='Applied' %}selected{% endif %}>Applied</option>
+            <option value="Shortlisted" {% if a['status']=='Shortlisted' %}selected{% endif %}>Shortlisted</option>
+            <option value="Selected" {% if a['status']=='Selected' %}selected{% endif %}>Selected</option>
+            <option value="Rejected" {% if a['status']=='Rejected' %}selected{% endif %}>Rejected</option>
+          </select>
+          <button class="btn btn-sm btn-primary" type="submit">Update</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

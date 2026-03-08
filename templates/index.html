@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<h2 class="mb-3">Available placement drives</h2>
+
+{% if drives %}
+<div class="row g-3">
+  {% for d in drives %}
+  <div class="col-12">
+    <div class="drive-card">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <div class="drive-title">{{ d['job_title'] }}</div>
+          <div class="text-muted small">{{ d['company_name'] }}</div>
+        </div>
+        <div class="text-end">
+          <a
+            href="{{ url_for('drive_view', drive_id=d['id']) }}"
+            class="btn btn-sm btn-primary"
+            >View</a
+          >
+        </div>
+      </div>
+      <div class="mt-2 text-muted">{{ d['job_desc'] }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">No drives available yet.</div>
+{% endif %} {% endblock %}

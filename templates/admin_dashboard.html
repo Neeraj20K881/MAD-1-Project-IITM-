@@ -1,0 +1,125 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Admin Dashboard</h2>
+<div class="row mb-3">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total Students</h5>
+        <p class="card-text h4">{{ total_students }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total Companies</h5>
+        <p class="card-text h4">{{ total_companies }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<form class="mb-3" method="get">
+  <div class="input-group">
+    <input
+      name="q"
+      value="{{ q }}"
+      class="form-control"
+      placeholder="Search companies, students, id, department"
+    />
+    <button class="btn btn-outline-secondary" type="submit">Search</button>
+  </div>
+</form>
+
+{# If there's a query, show search results for companies and students #} {% if q
+%}
+<h4>Company Results</h4>
+{% if company_results %}
+<div class="list-group mb-3">
+  {% for c in company_results %}
+  <div class="list-group-item">
+    <strong>{{ c['company_name'] }}</strong>
+    <div>
+      HR: {{ c['hr_contact'] }} | Approved: {{ 'Yes' if c['approved'] else 'No'
+      }}
+    </div>
+    <div class="mt-2">
+      <a
+        class="btn btn-sm btn-success"
+        href="{{ url_for('admin_approve_company', company_id=c['id']) }}"
+        >Approve</a
+      >
+      <a
+        class="btn btn-sm btn-warning"
+        href="{{ url_for('admin_reject_company', company_id=c['id']) }}"
+        >Reject</a
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No companies matched your search.</p>
+{% endif %}
+
+<h4>Student Results</h4>
+{% if student_results %}
+<div class="list-group mb-3">
+  {% for s in student_results %}
+  <div class="list-group-item">
+    <strong>{{ s['full_name'] or s['username'] }}</strong>
+    <div>Student ID: {{ s['id'] }} | User ID: {{ s['user_id'] }}</div>
+    <div>Department: {{ s['department'] }} | CGPA: {{ s['cgpa'] }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No students matched your search.</p>
+{% endif %} {% else %} {# No query: show full companies list and drives as
+before #}
+<h4>Companies</h4>
+<div class="list-group mb-3">
+  {% for c in companies %}
+  <div class="list-group-item">
+    <strong>{{ c['company_name'] }}</strong>
+    <div>
+      HR: {{ c['hr_contact'] }} | Approved: {{ 'Yes' if c['approved'] else 'No'
+      }}
+    </div>
+    <div class="mt-2">
+      <a
+        class="btn btn-sm btn-success"
+        href="{{ url_for('admin_approve_company', company_id=c['id']) }}"
+        >Approve</a
+      >
+      <a
+        class="btn btn-sm btn-warning"
+        href="{{ url_for('admin_reject_company', company_id=c['id']) }}"
+        >Reject</a
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<h4>Drives</h4>
+<div class="list-group">
+  {% for d in drives %}
+  <div class="list-group-item">
+    <h5>{{ d['job_title'] }} <small>{{ d['company_name'] }}</small></h5>
+    <div>Status: {{ d['status'] }}</div>
+    <div class="mt-2">
+      <a
+        class="btn btn-sm btn-success"
+        href="{{ url_for('admin_approve_drive', drive_id=d['id']) }}"
+        >Approve</a
+      >
+      <a
+        class="btn btn-sm btn-secondary"
+        href="{{ url_for('admin_reject_drive', drive_id=d['id']) }}"
+        >Set Pending</a
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %} {% endblock %}
